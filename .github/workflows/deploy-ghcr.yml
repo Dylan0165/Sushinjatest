@@ -23,13 +23,23 @@ jobs:
 
       - name: Stop and Remove Old Containers
         run: |
-          # Stop any container using port 80
-          docker ps -q --filter "publish=80" | xargs -r docker stop || true
-          docker ps -aq --filter "publish=80" | xargs -r docker rm || true
+          # Stop all running containers on port 80
+          CONTAINERS=$(docker ps -q --filter "publish=80")
+          if [ ! -z "$CONTAINERS" ]; then
+            echo "Stopping containers using port 80: $CONTAINERS"
+            docker stop $CONTAINERS || true
+            docker rm $CONTAINERS || true
+          fi
           
           # Also stop by name if it exists
-          docker stop sushinja-web || true
-          docker rm sushinja-web || true
+          docker stop sushinja-web 2>/dev/null || true
+          docker rm sushinja-web 2>/dev/null || true
+          
+          # Double check: kill any process using port 80
+          sudo fuser -k 80/tcp || true
+          
+          # Wait a moment for port to be released
+          sleep 2
 
       - name: Run New Container
         run: |
