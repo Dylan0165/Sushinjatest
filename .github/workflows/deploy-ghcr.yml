@@ -1,69 +1,48 @@
-name: Build and Deploy Sushinja (GitHub Registry)
+name: Build and Deploy Sushinja (Self-Hosted)
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Convert repository owner to lowercase
-        id: repo_owner
-        run: echo "lowercase=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
+      - name: Build Docker Image
+        run: |
+          docker build -t sushinja:latest \
+            --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+            --build-arg VCS_REF=${{ github.sha }} \
+            .
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+      - name: Stop and Remove Old Container
+        run: |
+          docker stop sushinja-web || true
+          docker rm sushinja-web || true
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run New Container
+        run: |
+          docker run -d \
+            --name sushinja-web \
+            --restart unless-stopped \
+            -p 80:80 \
+            sushinja:latest
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/sushinja:latest
-            ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/sushinja:${{ github.sha }}
-          cache-from: type=registry,ref=ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/sushinja:buildcache
-          cache-to: type=registry,ref=ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/sushinja:buildcache,mode=max
+      - name: Cleanup Old Images
+        run: |
+          docker image prune -f
 
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            # Login to GitHub Container Registry
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            
-            # Pull latest image
-            docker pull ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/sushinja:latest
-            
-            # Stop and remove old container
-            docker stop sushinja-web || true
-            docker rm sushinja-web || true
-            
-            # Run new container
-            docker run -d \
-              --name sushinja-web \
-              --restart unless-stopped \
-              -p 80:80 \
-              ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/sushinja:latest
-            
-            # Cleanup old images
-            docker image prune -af
+      - name: Display Deployment Info
+        run: |
+          echo "✅ Deployment successful!"
+          echo "🐳 Container: sushinja-web"
+          echo "📦 Image: sushinja:latest"
+          echo "🔗 URL: http://$(hostname -I | awk '{print $1}')"
+          echo "📊 Container status:"
+          docker ps --filter name=sushinja-web --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
