@@ -21,8 +21,13 @@ jobs:
             --build-arg VCS_REF=${{ github.sha }} \
             .
 
-      - name: Stop and Remove Old Container
+      - name: Stop and Remove Old Containers
         run: |
+          # Stop any container using port 80
+          docker ps -q --filter "publish=80" | xargs -r docker stop || true
+          docker ps -aq --filter "publish=80" | xargs -r docker rm || true
+          
+          # Also stop by name if it exists
           docker stop sushinja-web || true
           docker rm sushinja-web || true
 
