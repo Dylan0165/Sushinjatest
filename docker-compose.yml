@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  sushinja-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sushinja:latest
+    container_name: sushinja-web
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - sushinja-network
+
+networks:
+  sushinja-network:
+    driver: bridge
