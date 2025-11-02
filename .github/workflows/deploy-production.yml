@@ -1,0 +1,144 @@
+name: Deploy Sushinja Production (Self-Hosted)
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: sushinja
+  CONTAINER_NAME: sushinja-web
+  PORT: 80
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🏗️ Build Docker image
+        run: |
+          echo "Building Docker image..."
+          docker build \
+            --tag ${{ env.IMAGE_NAME }}:latest \
+            --tag ${{ env.IMAGE_NAME }}:${{ github.sha }} \
+            --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+            --build-arg VCS_REF=${{ github.sha }} \
+            .
+
+      - name: 🧪 Test image
+        run: |
+          echo "Testing Docker image..."
+          docker run --rm ${{ env.IMAGE_NAME }}:latest nginx -t
+
+      - name: 💾 Backup current container (if exists)
+        run: |
+          if [ "$(docker ps -q -f name=${{ env.CONTAINER_NAME }})" ]; then
+            echo "Creating backup..."
+            docker commit ${{ env.CONTAINER_NAME }} ${{ env.IMAGE_NAME }}:backup-$(date +%s)
+          fi
+
+      - name: 🛑 Stop old container
+        run: |
+          echo "Stopping old container..."
+          docker stop ${{ env.CONTAINER_NAME }} 2>/dev/null || true
+          docker rm ${{ env.CONTAINER_NAME }} 2>/dev/null || true
+
+      - name: 🚀 Start new container
+        run: |
+          echo "Starting new container..."
+          docker run -d \
+            --name ${{ env.CONTAINER_NAME }} \
+            --restart unless-stopped \
+            -p ${{ env.PORT }}:80 \
+            --health-cmd="curl -f http://localhost/ || exit 1" \
+            --health-interval=30s \
+            --health-timeout=10s \
+            --health-retries=3 \
+            -e NODE_ENV=production \
+            ${{ env.IMAGE_NAME }}:latest
+
+      - name: ⏳ Wait for container to be healthy
+        run: |
+          echo "Waiting for container to become healthy..."
+          timeout 60 bash -c 'until [ "$(docker inspect --format="{{.State.Health.Status}}" ${{ env.CONTAINER_NAME }})" == "healthy" ]; do sleep 2; done'
+
+      - name: 🧹 Cleanup old images
+        run: |
+          echo "Cleaning up old images..."
+          # Keep last 3 builds
+          docker images ${{ env.IMAGE_NAME }} --format "{{.ID}} {{.CreatedAt}}" | \
+            tail -n +4 | \
+            awk '{print $1}' | \
+            xargs -r docker rmi || true
+
+      - name: ✅ Deployment summary
+        run: |
+          echo "════════════════════════════════════════"
+          echo "✅ DEPLOYMENT SUCCESSFUL!"
+          echo "════════════════════════════════════════"
+          echo ""
+          echo "📦 Image: ${{ env.IMAGE_NAME }}:latest"
+          echo "🆔 Commit: ${{ github.sha }}"
+          echo "👤 Author: ${{ github.actor }}"
+          echo "📝 Message: ${{ github.event.head_commit.message }}"
+          echo ""
+          echo "🐳 Container Status:"
+          docker ps --filter "name=${{ env.CONTAINER_NAME }}" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+          echo ""
+          echo "🌐 Website: http://$(curl -s ifconfig.me)"
+          echo "════════════════════════════════════════"
+
+      - name: 🔔 Send deployment notification
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          if [ "$STATUS" == "success" ]; then
+            EMOJI="✅"
+            COLOR="green"
+          else
+            EMOJI="❌"
+            COLOR="red"
+          fi
+          
+          echo "$EMOJI Deployment $STATUS"
+          echo "Commit: ${{ github.sha }}"
+          echo "Branch: ${{ github.ref_name }}"
+
+  rollback:
+    runs-on: self-hosted
+    needs: build-and-deploy
+    if: failure()
+    
+    steps:
+      - name: 🔄 Rollback to previous version
+        run: |
+          echo "⚠️ Deployment failed! Rolling back..."
+          
+          # Find latest backup
+          BACKUP=$(docker images ${{ env.IMAGE_NAME }} --format "{{.Repository}}:{{.Tag}}" | grep backup | head -n 1)
+          
+          if [ -n "$BACKUP" ]; then
+            echo "Found backup: $BACKUP"
+            
+            # Stop failed container
+            docker stop ${{ env.CONTAINER_NAME }} 2>/dev/null || true
+            docker rm ${{ env.CONTAINER_NAME }} 2>/dev/null || true
+            
+            # Start backup
+            docker run -d \
+              --name ${{ env.CONTAINER_NAME }} \
+              --restart unless-stopped \
+              -p ${{ env.PORT }}:80 \
+              $BACKUP
+            
+            echo "✅ Rolled back to: $BACKUP"
+          else
+            echo "⚠️ No backup found!"
+          fi

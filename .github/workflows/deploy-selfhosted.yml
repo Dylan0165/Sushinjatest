@@ -1,0 +1,47 @@
+name: Build and Deploy Sushinja (Self-Hosted)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: |
+          echo "🥷 Building Sushinja Docker image..."
+          docker build -t sushinja:latest .
+
+      - name: Stop and remove old container
+        run: |
+          echo "🛑 Stopping old container..."
+          docker stop sushinja-web || true
+          docker rm sushinja-web || true
+
+      - name: Run new container
+        run: |
+          echo "🚀 Starting new container..."
+          docker run -d \
+            --name sushinja-web \
+            --restart unless-stopped \
+            -p 80:80 \
+            sushinja:latest
+
+      - name: Cleanup old images
+        run: |
+          echo "🧹 Cleaning up old images..."
+          docker image prune -af --filter "until=24h"
+
+      - name: Show container status
+        run: |
+          echo "✅ Deployment complete!"
+          docker ps --filter "name=sushinja-web"
+          echo ""
+          echo "🌐 Website is live at: http://$(curl -s ifconfig.me)"
