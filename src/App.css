@@ -1,0 +1,63 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #faf8f5 0%, #f5ebe0 50%, #faf8f5 100%);
+  font-family: 'Noto Serif JP', 'Georgia', serif;
+  color: #2d2d2d;
+}
+
+/* WARM JAPANESE THEME */
+:root {
+  --japan-cream: #faf8f5;
+  --japan-warm-white: #fff9f5;
+  --japan-warm-cream: #f5ebe0;
+  --japan-black: #2d2423;
+  --japan-red: #c1272d;
+  --japan-orange: #d4764e;
+  --japan-gold: #d4a574;
+  --japan-brown: #8b6f47;
+  --japan-warm-brown: #a0522d;
+  --japan-dark-brown: #6b4423;
+  --japan-light-brown: #d4c5b0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Japanese animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

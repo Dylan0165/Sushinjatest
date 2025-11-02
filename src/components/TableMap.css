@@ -1,0 +1,247 @@
+.table-map-section {
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #faf8f3 0%, #f5f0e8 100%);
+  border-top: 2px solid #e0d5c7;
+}
+
+.table-map-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #2d2d2d;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1rem;
+  color: #d4a574;
+  margin-bottom: 3rem;
+  letter-spacing: 0.5px;
+}
+
+.table-map-wrapper {
+  margin-bottom: 3rem;
+}
+
+.restaurant-layout {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0d5c7;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.kitchen-area {
+  background: linear-gradient(135deg, #a0826d 0%, #8b6f47 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.kitchen-text {
+  font-size: 1.2rem;
+}
+
+.table-map {
+  width: 100%;
+  max-width: 100%;
+  border: 2px solid #e0d5c7;
+  border-radius: 8px;
+  background-color: #faf8f3;
+  cursor: pointer;
+}
+
+.table-group {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.table-group circle {
+  transition: all 0.3s ease;
+}
+
+.table-group.available circle {
+  fill: #d4a574;
+  stroke: #b8916b;
+  stroke-width: 0.3;
+}
+
+.table-group.available:hover circle {
+  fill: #b8916b;
+  r: 5;
+  filter: drop-shadow(0 0 8px rgba(212, 165, 116, 0.5));
+}
+
+.table-group.available.hovered circle {
+  r: 5.5;
+  filter: drop-shadow(0 0 12px rgba(212, 165, 116, 0.7));
+}
+
+.table-group.unavailable circle {
+  fill: #a8a8a8;
+  stroke: #808080;
+  stroke-width: 0.3;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.table-group.selected circle {
+  fill: #d4a574;
+  r: 5;
+  stroke: #b8916b;
+  stroke-width: 1;
+  filter: drop-shadow(0 0 15px rgba(212, 165, 116, 0.8));
+}
+
+.table-number {
+  fill: white;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.table-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0d5c7;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.95rem;
+  color: #2d2d2d;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #2d2d2d;
+}
+
+.legend-color.available {
+  background-color: #d4a574;
+  border-color: #b8916b;
+}
+
+.legend-color.unavailable {
+  background-color: #a8a8a8;
+  border-color: #808080;
+}
+
+.legend-color.selected {
+  background-color: #d4a574;
+  border-color: #b8916b;
+  box-shadow: 0 0 8px rgba(212, 165, 116, 0.6);
+}
+
+.selected-table-info {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(168, 184, 154, 0.1) 100%);
+  border-left: 4px solid #d4a574;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  animation: slideInUp 0.4s ease-out;
+}
+
+.selected-table-info h3 {
+  color: #2d2d2d;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.selected-table-info p {
+  color: #666;
+  margin: 0.4rem 0;
+  font-size: 0.95rem;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.info-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #e0d5c7;
+  transition: all 0.3s ease;
+}
+
+.info-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(212, 165, 116, 0.15);
+}
+
+.info-number {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #d4a574;
+  margin-bottom: 0.5rem;
+}
+
+.info-box p {
+  color: #2d2d2d;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 768px) {
+  .table-map-section {
+    padding: 3rem 1rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .restaurant-layout {
+    padding: 1rem;
+  }
+
+  .table-map {
+    max-width: 100%;
+  }
+
+  .table-legend {
+    gap: 1rem;
+  }
+
+  .table-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

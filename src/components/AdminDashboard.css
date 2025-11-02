@@ -1,0 +1,166 @@
+.admin-section {
+  padding: 5rem 2rem;
+  background-color: #faf8f3;
+  border-top: 2px solid #e0d5c7;
+  min-height: calc(100vh - 80px);
+}
+
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #2d2d2d;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #e0d5c7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(212, 165, 116, 0.15);
+}
+
+.stat-value {
+  font-size: 3rem;
+  font-weight: 300;
+  color: #d4a574;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.bookings-list {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #e0d5c7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.bookings-list h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #2d2d2d;
+  font-weight: 500;
+}
+
+.no-bookings {
+  text-align: center;
+  padding: 3rem;
+  color: #999;
+  font-size: 1.1rem;
+}
+
+.bookings-table-wrapper {
+  overflow-x: auto;
+  border-radius: 6px;
+  border: 1px solid #e0d5c7;
+}
+
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bookings-table thead {
+  background: linear-gradient(135deg, #f5f0e8 0%, #faf8f3 100%);
+  border-bottom: 2px solid #e0d5c7;
+}
+
+.bookings-table th {
+  padding: 1rem;
+  text-align: left;
+  color: #2d2d2d;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.bookings-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #e0d5c7;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.bookings-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.bookings-table tbody tr:hover {
+  background-color: rgba(212, 165, 116, 0.05);
+}
+
+.bookings-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.guests-badge {
+  background-color: #d4a574;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.wishes-cell {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .admin-section {
+    padding: 2rem 1rem;
+  }
+
+  .admin-title {
+    font-size: 1.8rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bookings-list {
+    padding: 1rem;
+  }
+
+  .bookings-table th,
+  .bookings-table td {
+    padding: 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .bookings-table-wrapper {
+    overflow-x: scroll;
+  }
+}

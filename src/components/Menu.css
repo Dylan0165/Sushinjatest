@@ -1,0 +1,308 @@
+.menu-section {
+  padding: 6rem 2rem;
+  background: 
+    linear-gradient(135deg, rgba(250, 248, 245, 0.96) 0%, rgba(245, 235, 224, 0.96) 100%),
+    url('../../../Afbeeldingen/Sushi plaatje 2.jpg') center/cover no-repeat fixed;
+  min-height: 100vh;
+  position: relative;
+  border-bottom: 3px solid #d4764e;
+  box-shadow: inset 0 -3px 12px rgba(212, 118, 78, 0.2);
+}
+
+.menu-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(250, 248, 245, 0.88);
+  z-index: 0;
+}
+
+.menu-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.menu-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  animation: fadeInUp 1s ease-out;
+}
+
+.menu-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.menu-title {
+  font-size: 3.5rem;
+  color: #2d2423;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-family: 'Noto Serif JP', serif;
+  text-shadow: 0 2px 4px rgba(139, 111, 71, 0.1);
+}
+
+.menu-subtitle {
+  font-size: 1.2rem;
+  color: #d4764e;
+  letter-spacing: 2px;
+  font-family: 'Noto Sans JP', sans-serif;
+  text-shadow: 0 1px 3px rgba(212, 118, 78, 0.2);
+}
+
+/* All You Can Eat Banner */
+.ayce-banner {
+  background: linear-gradient(135deg, #fff9f5 0%, #f5ebe0 100%);
+  padding: 3rem;
+  border-radius: 8px;
+  border: 3px solid #d4764e;
+  margin-bottom: 4rem;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(212, 118, 78, 0.15), 0 4px 12px rgba(212, 165, 116, 0.1);
+}
+
+.ayce-title {
+  font-size: 2.5rem;
+  color: #2d2423;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  font-family: 'Noto Serif JP', serif;
+  text-shadow: 0 1px 3px rgba(139, 111, 71, 0.1);
+}
+
+.ayce-pricing {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.ayce-price-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ayce-price {
+  font-size: 3rem;
+  color: #d4764e;
+  font-weight: 900;
+  font-family: 'Noto Serif JP', serif;
+  text-shadow: 0 2px 6px rgba(212, 118, 78, 0.3);
+}
+
+.ayce-label {
+  font-size: 1rem;
+  color: #5a4a3a;
+  letter-spacing: 1px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.ayce-description {
+  font-size: 1.2rem;
+  color: #3a3230;
+  font-style: italic;
+  font-family: 'Noto Serif JP', serif;
+}
+
+/* Menu Image */
+.menu-image-container {
+  position: relative;
+  margin-bottom: 4rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 3px solid #8b6f47;
+  box-shadow: 0 8px 24px rgba(139, 111, 71, 0.2), 0 4px 12px rgba(212, 118, 78, 0.15);
+}
+
+.menu-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.menu-image-container:hover .menu-image {
+  transform: scale(1.02);
+}
+
+.menu-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(45, 36, 35, 0.85), transparent);
+  padding: 2rem;
+  text-align: center;
+}
+
+.menu-image-overlay p {
+  color: #fff9f5;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: 'Noto Sans JP', sans-serif;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Menu Categories */
+.menu-categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+
+.menu-category {
+  background: linear-gradient(135deg, #fff9f5 0%, #f5ebe0 100%);
+  padding: 2.5rem;
+  border-radius: 8px;
+  border: 2px solid #d4764e;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(212, 118, 78, 0.12), 0 2px 6px rgba(212, 165, 116, 0.1);
+}
+
+.menu-category:hover {
+  border-color: #c1272d;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(212, 118, 78, 0.2), 0 4px 12px rgba(193, 39, 45, 0.15);
+}
+
+.category-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.8rem;
+  color: #d4764e;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f5ebe0;
+  font-weight: 700;
+  font-family: 'Noto Serif JP', serif;
+  text-shadow: 0 1px 2px rgba(212, 118, 78, 0.2);
+}
+
+.category-icon {
+  font-size: 2rem;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  transform: translateX(5px);
+}
+
+.item-name {
+  color: #2d2423;
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.item-dots {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    #d4764e 0,
+    #d4764e 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  opacity: 0.6;
+}
+
+.item-price {
+  color: #d4764e;
+  font-size: 1.2rem;
+  font-weight: 700;
+  white-space: nowrap;
+  font-family: 'Noto Serif JP', serif;
+  text-shadow: 0 1px 2px rgba(212, 118, 78, 0.2);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .menu-title {
+    font-size: 2.5rem;
+  }
+
+  .ayce-banner {
+    padding: 2rem 1.5rem;
+  }
+
+  .ayce-pricing {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .ayce-price {
+    font-size: 2.5rem;
+  }
+
+  .menu-categories {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .menu-category {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-section {
+    padding: 3rem 1rem;
+  }
+
+  .menu-title {
+    font-size: 2rem;
+  }
+
+  .ayce-title {
+    font-size: 2rem;
+  }
+
+  .ayce-price {
+    font-size: 2rem;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+  }
+
+  .menu-category {
+    padding: 1.5rem 1rem;
+  }
+}

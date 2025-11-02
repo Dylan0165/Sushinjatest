@@ -1,0 +1,272 @@
+.hero {
+  position: relative;
+  background: 
+    linear-gradient(135deg, rgba(250, 248, 245, 0.88) 0%, rgba(245, 235, 224, 0.92) 100%),
+    url('../../../Afbeeldingen/sushi plaatje 3.jpg') center/cover no-repeat;
+  background-attachment: fixed;
+  color: #2d2423;
+  min-height: 95vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  border-bottom: 3px solid #d4764e;
+  box-shadow: inset 0 -3px 12px rgba(212, 118, 78, 0.2);
+}
+
+.hero-smoke {
+  display: none;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at center, rgba(250, 248, 245, 0.3) 0%, rgba(245, 235, 224, 0.65) 100%);
+  z-index: 1;
+}
+
+.hero::before {
+  display: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Logo */
+.ninja-logo {
+  margin-bottom: 3rem;
+}
+
+.hero-logo-image {
+  height: 140px;
+  width: auto;
+  display: inline-block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* Brand name */
+.hero-brand {
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: 8px;
+  margin-bottom: 1.5rem;
+  color: #2d2423;
+  font-family: 'Noto Serif JP', serif;
+  text-shadow: 2px 2px 4px rgba(139, 111, 71, 0.15), 0 0 20px rgba(212, 118, 78, 0.1);
+}
+
+.hero-tagline {
+  font-size: 1.2rem;
+  letter-spacing: 4px;
+  color: #d4764e;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  font-family: 'Noto Sans JP', sans-serif;
+  text-shadow: 0 1px 3px rgba(212, 118, 78, 0.2);
+}
+
+/* Divider */
+.hero-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2.5rem auto;
+  max-width: 500px;
+}
+
+.divider-left,
+.divider-right {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d4764e, transparent);
+}
+
+.ninja-star {
+  font-size: 1.5rem;
+  color: #d4a574;
+  filter: drop-shadow(0 0 4px rgba(212, 165, 116, 0.4));
+}
+
+.hero-description {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #5a4a3a;
+  margin-bottom: 3rem;
+  font-family: 'Noto Serif JP', serif;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CTA Buttons */
+.hero-cta {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.ninja-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem 2.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  border: 2px solid;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.ninja-button.primary {
+  background: linear-gradient(135deg, #d4764e 0%, #c1272d 100%);
+  color: #fff9f5;
+  border-color: #d4764e;
+  box-shadow: 0 4px 12px rgba(212, 118, 78, 0.3);
+}
+
+.ninja-button.primary:hover {
+  background: linear-gradient(135deg, #c1272d 0%, #9a1f24 100%);
+  border-color: #c1272d;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(212, 118, 78, 0.4), 0 3px 10px rgba(193, 39, 45, 0.3);
+}
+
+.ninja-button.secondary {
+  background: transparent;
+  color: #2d2423;
+  border-color: #8b6f47;
+}
+
+.ninja-button.secondary:hover {
+  background: #8b6f47;
+  color: #fff9f5;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(139, 111, 71, 0.35);
+}
+
+.button-icon {
+  font-size: 1.3rem;
+}
+
+/* Features */
+.hero-features {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.95rem;
+  color: #5a4a3a;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #d4764e, #c1272d, #8b6f47);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 4px rgba(212, 118, 78, 0.2));
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-brand {
+    font-size: 4rem;
+  }
+
+  .hero-description {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100vh;
+    padding: 3rem 1.5rem;
+  }
+
+  .hero-brand {
+    font-size: 3rem;
+    letter-spacing: 4px;
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .ninja-button {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  .hero-features {
+    gap: 2rem;
+  }
+
+  .hero-logo-image {
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-brand {
+    font-size: 2.2rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+
+  .hero-logo-image {
+    height: 80px;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+  }
+}
